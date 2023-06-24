@@ -10,6 +10,9 @@ def remame_based_on_date(folder_path)
   files = Dir.glob(File.join(folder_path, '*.{jpeg,mov}'))
 
   files.each do |file|
+    # If the file's name already matches the pattern YYYYMMDD.HHMM.*, skip it
+    next if File.basename(file) =~ /\d{8}\.\d+/
+
     begin
       if File.extname(file) == '.jpeg'
         metadata = EXIFR::JPEG.new(file).date_time
@@ -45,6 +48,9 @@ def invert_file_names(folder_path)
   files = Dir.glob(File.join(folder_path, '*.{jpeg,mov}'))
 
   files.each do |f|
+    # If the file's name already matches the pattern of inverted names (numbers with decimal), skip it
+    next if File.basename(f) =~ /\d+\.\d+\..*/
+
     new_basename = (100_000_000 - File.basename(f, '.*').to_f).to_s + File.extname(f)
     new_filepath = File.join(folder_path, new_basename)
     puts "Moving #{File.basename(f)} to #{new_filepath}"
@@ -60,7 +66,7 @@ OptionParser.new do |opts|
     options[:reverse] = v
   end
 
-  opts.on('-f', '--file-path', 'Directory where photos are stored') do |v|
+  opts.on('-f', '--file-path PATH', 'Directory where photos are stored') do |v|
     options[:file_path] = v
   end
 end.parse!
