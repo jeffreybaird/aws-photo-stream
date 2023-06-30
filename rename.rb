@@ -46,10 +46,9 @@ end
 
 def invert_file_names(folder_path)
   files = Dir.glob(File.join(folder_path, '*.{jpeg,mov}'))
-
   files.each do |f|
     # If the file's name already matches the pattern of inverted names (numbers with decimal), skip it
-    next if File.basename(f) =~ /\d+\.\d+\..*/
+    next if (File.basename(f) =~ /\d+\.\d+\..*/ && !(File.basename(f)[0..3].to_i < 2100))
 
     new_basename = (100_000_000 - File.basename(f, '.*').to_f).to_s + File.extname(f)
     new_filepath = File.join(folder_path, new_basename)
