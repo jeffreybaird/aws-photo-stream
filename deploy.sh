@@ -39,7 +39,7 @@ fi
 
 # Deploy Static Files to S3 Bucket
 echo "Deploying static files to S3 bucket..."
-aws s3 sync . s3://${S3_BUCKET_NAME} --delete --exclude ".git/*" --exclude ".DS_Store" --exclude ".*" --exclude "Gemfile" --exclude "lambda_function.rb" --exclude "Gemfile.lock" --exclude "photos/*" --exclude "*.rb" --profile ${AWS_PROFILE}
+aws s3 sync . "s3://${S3_BUCKET_NAME}" --delete --exclude ".git/*" --exclude ".DS_Store" --exclude ".*" --exclude "Gemfile" --exclude "lambda_function.rb" --exclude "Gemfile.lock" --exclude "photos/*" --exclude "*.rb" --profile ${AWS_PROFILE}
 
 check_deployment_status
 
