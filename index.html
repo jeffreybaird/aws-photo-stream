@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="main.js"></script>
+    <script type='module' src="main.js"></script>
     <script src="https://unpkg.com/aws-amplify@3/dist/aws-amplify.min.js"></script>
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.713.0.min.js"></script>
     <script>
@@ -12,7 +12,7 @@
 <body>
 <header class="header">
     <div id="loginContainer">
-        <form id="loginForm" onsubmit="event.preventDefault(); signIn();">
+        <form id="loginForm" onsubmit="event.preventDefault(); userAuth.signIn();">
             <input type="text" id="signInUsername" placeholder="Username">
             <input type="password" id="signInPassword" placeholder="Password">
             <input type="submit" value="Sign In">
@@ -22,7 +22,7 @@
     <h2>Confirm Your Account</h2>
     <p>Please check your email for the confirmation code we sent you. Enter it below to confirm your account:</p>
 
-    <form id="confirmForm" onsubmit="event.preventDefault(); confirmSignUp();">
+    <form id="confirmForm" onsubmit="event.preventDefault(); userAuth.confirmSignUp();">
         <label for="confirm-username">Username:</label>
         <input type="text" id="confirm-username" placeholder="Enter username" readonly>
 
@@ -34,7 +34,7 @@
 </div>
 
     <a href="#" onclick="onSignUpLinkClick(event)" id="signUpLink">Sign Up</a> <!-- Add this line -->
-    <div id="signupContainer" hidden onsubmit="event.preventDefault(); signUp();" style="display:none;">
+    <div id="signupContainer" hidden onsubmit="event.preventDefault(); userAuth.signUp();" style="display:none;">
         <form id="signupForm">
             <input type="text" id="signUpUsername" placeholder="Username">
             <input type="password" id="signUpPassword" placeholder="Password">
@@ -47,7 +47,7 @@
     <a href="#" onclick="onSignInLinkClick(event)" style="display:none;" id="signInLink">Sign In</a> <!-- Add this line -->
     <div id="userDisplay" hidden>
         Welcome, <span id="usernameDisplay"></span>!
-        <a href="#" onclick="signOut()">Logout</a>
+        <a href="#" onclick="userAuth.signOut()">Logout</a>
     </div>
 </header>
 
@@ -55,7 +55,7 @@
 <body>
 <div class="title-header">The Lennon-Baird Family</div>
 <div id="photos" class="container"></div>
-<button id="loadMoreBtn" onclick="loadMorePhotos()">Load More</button>
+<button id="loadMoreBtn" onclick="photoLoader.loadMorePhotos()">Load More</button>
 <input type="hidden" id="pageToken" value="">
 <div id="myModal" class="modal">
     <!-- Modal content -->
